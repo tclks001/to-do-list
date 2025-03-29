@@ -156,6 +156,14 @@ def taskType_delete(data):
     if user:
         # 删除用户的某个任务类型
         if data["type_name"] in user.task_types:
+            # 把这个用户所有该类型的任务都改为默认类型
+            tasks_of_user = Task.query.filter_by(
+                user_id=user.id, type_of=data["type_name"]
+            ).all()
+            for task in tasks_of_user:
+                task.type_of = "default"
+                task.type_icon = default_task_types["default"]
+            # 删除用户的这个任务类型
             del user.task_types[data["type_name"]]
             db.session.commit()
             return jsonify({"message": "Task type deleted successfully"})
