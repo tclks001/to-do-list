@@ -64,6 +64,10 @@
 		removingType.value = taskTypeNames.value[val.detail.value];
 	};
 	const removeType = () => {
+		if(removingType.value === ""){
+			return;
+		}
+		console.log(removingType.value);
 		store.removeTaskType(removingType.value);
 		removingType.value = "";
 	};

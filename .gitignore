@@ -6,3 +6,4 @@ colorui/
 *.pyc
 *.log
 *.db
+frontend/package-lock.json
