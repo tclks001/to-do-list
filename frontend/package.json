@@ -1,0 +1,13 @@
+{
+	"dependencies": {
+		"@dcloudio/uni-ui": "^1.5.7",
+		"pinia": "^3.0.1"
+	},
+	"devDependencies": {
+		"sass": "^1.85.1",
+		"sass-loader": "^16.0.5"
+	},
+	
+	"dev:mp-weixin": "cross-env NODE_ENV=development UNI_PLATFORM=mp-weixin vue-cli-service uni-build --watch --minimize"
+	
+}
