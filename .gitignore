@@ -7,3 +7,4 @@ colorui/
 *.log
 *.db
 frontend/package-lock.json
+uni.scss
