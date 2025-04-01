@@ -1,6 +1,5 @@
 # flask 入口文件
-from flask import Flask, jsonify, request, Blueprint
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
 from flask_cors import CORS
 
 from api.task_routes import task_routes
@@ -16,7 +15,8 @@ CORS(app, supports_credentials=True)  # 允许跨域请求
 app.register_blueprint(task_routes, url_prefix="/tasks")  # 注册蓝图
 app.register_blueprint(user_routes, url_prefix="/users")  # 注册蓝图
 
-init_db()
+init_db(app)
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)  # 启动flask服务
+    # , host="0.0.0.0"
+    app.run(debug=True, port=5000)  # 启动flask服务

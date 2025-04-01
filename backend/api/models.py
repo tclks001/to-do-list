@@ -9,10 +9,7 @@ default_task_types = {"default": "emoji", "work": "pen", "personal": "book"}
 
 class User(db.Model):
     username = db.Column(db.String(50), unique=True, nullable=False, primary_key=True)
-    task_types = db.Column(
-        db.json,
-        default=default_task_types,
-    )
+    task_types = db.Column(db.JSON, default=lambda: default_task_types)
 
 
 class Task(db.Model):
@@ -28,8 +25,10 @@ class Task(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.now())
 
 
-def init_db():
-    db.create_all()
+def init_db(app):
+    db.init_app(app)
+    with app.app_context():
+        db.create_all()
 
 
 def user_register(data):
@@ -77,7 +76,7 @@ def user_datafetch(data):
     user = User.query.filter_by(username=username).first()
     if user:
         tasks_of_user = Task.query.filter_by(user_id=user.id).all()
-        return jsonify(user, tasks_of_user)
+        return jsonify({"user": user, "tasks": tasks_of_user})
     else:
         return jsonify({"message": "Invalid username"}), 400
 
